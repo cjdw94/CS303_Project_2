@@ -28,7 +28,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\Users\Corey\Desktop\morse.txt">
+    <Text Include="morse.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
