@@ -17,6 +17,7 @@ stringstream text_buffer;
 SFBM::Map<string, string> morse_map;
 
 // Opens (specifically) the "morse.txt" source file for processing the given Morse code
+
 void Morse::open_code_key_file() {
 	morse_text.open("morse.txt");
 	if (!morse_text) {
@@ -29,6 +30,7 @@ void Morse::open_code_key_file() {
 	}
 	morse_text.close();
 }
+
 
 void Morse::code_key_eval() {
 
@@ -82,23 +84,61 @@ void Morse::createMap() {
 	Morse::open_code_key_file();
 	Morse::code_key_eval();
 }
+/*  
 
-/*template<typename Item_Type>
-Binary_Tree<Item_Type> Morse::read_map_to_binary_tree() {
-SFBM::Map<string, string> iterator it;
-it = morse_map.begin();
-if (it == NULL) {
-return Binary_Tree<Item_Type>();
-}
-else {
-Item_Type the_data;
-the_data = it++;
-Binary_Tree<Item_Type> left = read_map_to_binary_tree(it);
-Binary_Tree<Item_Type> right = read_map_to_binary_tree(it);
-return Binary_Tree<Item_Type>(the_data, left, right);
-}
+This code all needs to be debugged. I am having trouble finding the issue with it if you want to give it a shot Corey
+
+//Fills the binary tree from the morse map
+Binary_Tree<string> Morse::read_map_to_binary_tree() {
+	SFBM::Map<string, string> iterator it;
+	it = morse_map.begin();
+	if (it == NULL) {
+		return Binary_Tree<string>();
+	}
+	else {
+		//while there are still codes in the map keep filling the tree
+		while (it != morse_map.end()) {
+			BTNode<string>* root = morse_tree.getRoot();
+			string the_data;
+			the_data = it++;
+
+			//run the for loop to iterate through every character in the morse code
+			for (int i = 0; i < the_data.length(); i++) {
+
+				//if the character is a dot we move left down the tree
+				if (the_data[i] == '.') {
+					//if there is no node then create a node and move the root to it 
+					if (root.left == NULL) {
+						BTNode<string>* left;
+						root.left = left;
+						root = root.left;
+
+					else
+						root = root.left;
+					}
+				}
+
+				//if the character is dash then we move right down the tree
+				else if (the_data[i] == '-') {
+					//if there is no right node then make one and move the root to it
+					if (root.right == NULL) {
+						BTNode<string>* right;
+						root.right = right;
+						root* = root.left;
+					}
+					else
+						root = root.right;
+				}
+				
+			}
+			//assign the_data to the last node we moved to before restarting the while loop
+			root.data = the_data;
+		}
+	}
 }
 */
+
+
 
 int main() {
 

@@ -6,7 +6,8 @@
 
 using namespace std;
 
-class Morse {
+
+class Morse{
 public:
 	void open_code_key_file();
 
@@ -14,12 +15,12 @@ public:
 
 	void createMap();
 
-	//template <typename Item_Type>
-	//Binary_Tree<Item_Type> read_map_to_binary_tree();
+	
+	Binary_Tree<string> read_map_to_binary_tree();
 
 private:
 	SFBM::Map<string, string> morse_map;
-	Binary_Tree<string> morse_tree;
+	Binary_Tree<string> morse_tree = Binary_Tree<string>();
 
 };
 
