@@ -4,7 +4,8 @@
 #include <set>
 #include <utility>
 
-namespace KW
+// Namespace for namesake, Samuel F. B. Morse.  =D
+namespace SFBM
 {
 	template<typename Key_Type, typename Value_Type>
 	class Map {

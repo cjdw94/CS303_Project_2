@@ -146,11 +146,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Morse.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="map.h" />
     <ClInclude Include="Morse.h" />
+    <ClInclude Include="Syntax_Error.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="morse.txt" />
