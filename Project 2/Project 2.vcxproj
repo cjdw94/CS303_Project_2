@@ -149,6 +149,8 @@
     <ClCompile Include="Morse.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Binary_Tree.h" />
+    <ClInclude Include="BTNode.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="Morse.h" />
     <ClInclude Include="Syntax_Error.h" />
