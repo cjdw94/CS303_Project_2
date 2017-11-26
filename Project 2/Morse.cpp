@@ -1,4 +1,5 @@
 #include "Morse.h"
+#include "Binary_Tree.h"
 #include "Syntax_Error.h"
 #include <fstream>
 #include <sstream>
@@ -82,14 +83,29 @@ void Morse::createMap() {
 	Morse::code_key_eval();
 }
 
-void Morse::createBTree() {
-
+/*template<typename Item_Type>
+Binary_Tree<Item_Type> Morse::read_map_to_binary_tree() {
+	SFBM::Map<string, string> iterator it;
+	it = morse_map.begin();
+	if (it == NULL) {
+		return Binary_Tree<Item_Type>();
+	}
+	else {
+		Item_Type the_data;
+		the_data = it++;
+		Binary_Tree<Item_Type> left = read_map_to_binary_tree(it);
+		Binary_Tree<Item_Type> right = read_map_to_binary_tree(it);
+		return Binary_Tree<Item_Type>(the_data, left, right);
+	}
 }
+*/
 
 int main() {
 
 	Morse new_morse;
 	new_morse.createMap();
+	//template<typename Item_Type>
+	//Binary_Tree<string> morse_tree = Binary_Tree<Item_Type> Morse::read_map_to_binary_tree();
 
 	return 0;
 }

@@ -2,6 +2,7 @@
 #define MORSE_H_
 
 #include "map.h"
+#include "Binary_Tree.h"
 
 using namespace std;
 
@@ -12,12 +13,13 @@ public:
 	void code_key_eval();
 
 	void createMap();
-	
-	void createBTree();
+
+	//template <typename Item_Type>
+	//Binary_Tree<Item_Type> read_map_to_binary_tree();
 
 private:
 	SFBM::Map<string, string> morse_map;
-	static const string CODE_SYMBOLS;
+	Binary_Tree<string> morse_tree;
 
 };
 
