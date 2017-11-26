@@ -29,12 +29,6 @@
     <ClInclude Include="Syntax_Error.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Binary_Tree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BTNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="morse.txt">
