@@ -157,7 +157,7 @@ int main() {
 
 	Binary_Tree<string> morse_tree;
 
-	morse_tree = new_morse.read_map_to_tree(morse_tree);
+	//morse_tree = new_morse.read_map_to_tree(morse_tree);
 
 	return 0;
 }
