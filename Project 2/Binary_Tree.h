@@ -259,7 +259,7 @@ Current attempt: Trying the working map's iterator (created outside the function
 				 The iterator is set to map.begin() before entering the function
 				 as the argument.
 **************************************************************************/
-
+/*
 template<typename Item_Type>
 Binary_Tree<Item_Type> Binary_Tree<Item_Type>::
 read_binary_tree(SFBM::Map<std::string, std::string>::iterator it) {
@@ -274,6 +274,7 @@ read_binary_tree(SFBM::Map<std::string, std::string>::iterator it) {
 		return Binary_Tree<Item_Type>(the_data, left, right);
 	}
 }
+*/
 
 
 template<typename Item_Type>
