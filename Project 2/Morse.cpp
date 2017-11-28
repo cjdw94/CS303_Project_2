@@ -171,6 +171,70 @@ void change_array_size(vector <Huff_Data<char>>& morse_Huff_Data, int size) {
 	}
 }
 
+string morse_to_huffman() {
+	int weight = 0, index = 0;
+
+	switch (current_char) {
+	case ' ': weight = 1205; index = 0;
+		break;
+	case 'a': weight = 115; index = 5;
+		break;
+	case 'b': weight = 18; index = 22;
+		break;
+	case 'c': weight = 20; index = 20;
+		break;
+	case 'd': weight = 35; index = 10;
+		break;
+	case 'e': weight = 380; index = 2;
+		break;
+	case 'f': weight = 27; index = 14;
+		break;
+	case 'g': weight = 43; index = 8;
+		break;
+	case 'h': weight = 11; index = 26;
+		break;
+	case 'i': weight = 100; index = 6;
+		break;
+	case 'j': weight = 17; index = 23;
+		break;
+	case 'k': weight = 39; index = 9;
+		break;
+	case 'l': weight = 29; index = 12;
+		break;
+	case 'm': weight = 160; index = 3;
+		break;
+	case 'n': weight = 140; index = 4;
+		break;
+	case 'o': weight = 89; index = 7;
+		break;
+	case 'p': weight = 16; index = 24;
+		break;
+	case 'q': weight = 23; index = 17;
+		break;
+	case 'r': weight = 28; index = 13;
+		break;
+	case 's': weight = 24; index = 16;
+		break;
+	case 't': weight = 500; index = 1;
+		break;
+	case 'u': weight = 26; index = 15;
+		break;
+	case 'v': weight = 14; index = 25;
+		break;
+	case 'w': weight = 30; index = 11;
+		break;
+	case 'x': weight = 19; index = 21;
+		break;
+	case 'y': weight = 21; index = 19;
+		break;
+	case 'z': weight = 22; index = 18;
+		break;
+	}
+
+	Huff_Data<char> result(weight, current_char);
+	morse_Huff_Data[index] = result;
+}
+
 int main() {
 
 	Morse new_morse;

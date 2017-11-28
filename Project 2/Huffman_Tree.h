@@ -105,15 +105,27 @@ void Huffman_Tree<T>::print_code(std::ostream& out, std::string code, const Bina
 template<typename T>
 std::string Huffman_Tree<T>::decode(const std::string& coded_message) {
 	std::string result;
+	bool delimiter = false;
 	Binary_Tree<Huff_Data<T>> current_tree = huff_tree;
 	for (size_t i = 0; i < coded_message.length(); i++) {
-	if (coded_message[i] == '_') {
+		if (i == 0) {
 			current_tree = current_tree.get_right_subtree();
 		}
-	else {
-			current_tree = current_tree.get_left_subtree();
+		else {
+			if ((coded_message[i] == ' ') && (delimiter = false)) {
+				current_tree = current_tree.get_left_subtree();
+				delimiter = true;
+			}
+			else {
+				if ((coded_message[i] == '.')) {
+					current_tree = current_tree.get_left_subtree();
+				}
+				else {
+					current_tree = current_tree.get_right_subtree();
+				}
+			}
 		}
-	if (current_tree.is_leaf()) {
+		if (current_tree.is_leaf()) {
 		Huff_Data<T> the_data = current_tree.get_data();
 			result += the_data.object;
 			current_tree = huff_tree;
