@@ -65,8 +65,6 @@ public:
 	virtual std::string to_string() const;
 
 	/** Read a binary tree */
-	Binary_Tree<Item_Type> read_binary_tree(SFBM::Map<std::string, std::string>::iterator it);
-
 	static Binary_Tree<Item_Type> read_binary_tree(std::istream& in);
 
 	void read_tree(std::vector<std::string>& text);
@@ -249,33 +247,6 @@ void Binary_Tree<Item_Type>::read_tree(std::vector<std::string>& text) {
 	Binary_Tree<Item_Type> newTree = read_binary_tree(text, i);
 	setRoot(newTree.getRoot());
 }
-
-/**************************************************************************
-New attempted function here -> trying to read from a map into a binary tree
-
-Current attempt: Trying the working map's iterator (created outside the function)
-				 as the argument for the overloaded read_binary_tree function.
-
-				 The iterator is set to map.begin() before entering the function
-				 as the argument.
-**************************************************************************/
-/*
-template<typename Item_Type>
-Binary_Tree<Item_Type> Binary_Tree<Item_Type>::
-read_binary_tree(SFBM::Map<std::string, std::string>::iterator it) {
-	if (it->first == "") {
-		return Binary_Tree<Item_Type>();
-	}
-	else {
-		Item_Type the_data;
-		the_data = it->second;
-		Binary_Tree<Item_Type> left = read_binary_tree(++it);
-		Binary_Tree<Item_Type> right = read_binary_tree(++it);
-		return Binary_Tree<Item_Type>(the_data, left, right);
-	}
-}
-*/
-
 
 template<typename Item_Type>
 Binary_Tree<Item_Type> Binary_Tree<Item_Type>::

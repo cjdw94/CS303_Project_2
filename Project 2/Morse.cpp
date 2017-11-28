@@ -1,10 +1,12 @@
 #include "Morse.h"
 #include "Binary_Tree.h"
 #include "Syntax_Error.h"
+#include "Huffman_Tree.h"
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <cstring>
+#include <vector>
+#include <iostream>
 
 // Namespace for namesake, Samuel F. B. Morse.  =D
 using namespace SFBM;
@@ -12,10 +14,10 @@ using std::string;
 using std::stringstream;
 using std::istringstream;
 using std::ifstream;
+using std::vector;
 
 ifstream morse_text;
 stringstream text_buffer;
-SFBM::Map<string, string> morse_map;
 
 // Opens (specifically) the "morse.txt" source file for processing the given Morse code
 void Morse::open_code_key_file() {
@@ -31,7 +33,7 @@ void Morse::open_code_key_file() {
 	morse_text.close();
 }
 
-void Morse::code_key_eval(SFBM::Map<string, string>& the_map) {
+void Morse::code_key_eval(SFBM::Map<string, string>& morse_map, vector <Huff_Data<char>>& morse_Huff_Data) {
 
 	// Process each char
 	char next_char;
@@ -45,20 +47,26 @@ void Morse::code_key_eval(SFBM::Map<string, string>& the_map) {
 			key += next_char;
 		}
 
-		// While processing roman characters, assign to morse_value for later map integration
+		// While processing roman characters, assign to morse_value for later map and Huffman Tree integration
 		else if ((next_char != '.') && (next_char != '_')) {
 			if (morse_value == "temp") {
 				/* Convert roman character from char to string by using string constructor:
 				string(size_t n, char a) */
 				morse_value = string(1, next_char);
+				/* Call assign_weight to assign weight to character, while simultaneously
+				   placing into Huff_Data array */
+				assign_weight(next_char, morse_Huff_Data);
 			}
 			else {
-				the_map[key] = morse_value;
+				morse_map[key] = morse_value;
 				// Clear the key to prepare for next key's concatenation process
 				key = "";
 				/* Convert roman character from char to string by using string constructor:
 				string(size_t n, char a) */
 				morse_value = string(1, next_char);
+				/* Call assign_weight to assign weight to character, while simultaneously
+				placing into Huff_Data array */
+				assign_weight(next_char, morse_Huff_Data);
 			}
 		}
 
@@ -67,9 +75,14 @@ void Morse::code_key_eval(SFBM::Map<string, string>& the_map) {
 
 		// If nothing left to process / nothing left in the stream
 		if (!text_buffer) {
-			the_map[key] = morse_value;
+			morse_map[key] = morse_value;
 			key = "";
 			morse_value = string(1, next_char);
+			/* Call assign_weight to assign weight to character, while simultaneously
+			placing into Huff_Data array */
+			/* Note: At this point, the final char will be a period (from the end of the file.)
+			We're going to replace that with a space character for the Huffman Tree.  */
+			assign_weight(next_char = ' ', morse_Huff_Data);
 			break;
 		}
 
@@ -79,85 +92,109 @@ void Morse::code_key_eval(SFBM::Map<string, string>& the_map) {
 	}
 }
 
-void Morse::createMap(SFBM::Map<string, string>& the_map) {
+void Morse::assign_weight(char current_char, vector <Huff_Data<char>>& morse_Huff_Data){
+	int weight = 0, index = 0;
+
+	switch (current_char) {
+	case ' ': weight = 1205; index = 0;
+		break;
+	case 'a': weight = 115; index = 5;
+		break;
+	case 'b': weight = 18; index = 22;
+		break;
+	case 'c': weight = 20; index = 20;
+		break;
+	case 'd': weight = 35; index = 10;
+		break;
+	case 'e': weight = 380; index = 2;
+		break;
+	case 'f': weight = 27; index = 14;
+		break;
+	case 'g': weight = 43; index = 8;
+		break;
+	case 'h': weight = 11; index = 26;
+		break;
+	case 'i': weight = 100; index = 6;
+		break;
+	case 'j': weight = 17; index = 23;
+		break;
+	case 'k': weight = 39; index = 9;
+		break;
+	case 'l': weight = 29; index = 12;
+		break;
+	case 'm': weight = 160; index = 3;
+		break;
+	case 'n': weight = 140; index = 4;
+		break;
+	case 'o': weight = 89; index = 7;
+		break;
+	case 'p': weight = 16; index = 24;
+		break;
+	case 'q': weight = 23; index = 17;
+		break;
+	case 'r': weight = 28; index = 13;
+		break;
+	case 's': weight = 24; index = 16;
+		break;
+	case 't': weight = 500; index = 1;
+		break;
+	case 'u': weight = 26; index = 15;
+		break;
+	case 'v': weight = 14; index = 25;
+		break;
+	case 'w': weight = 30; index = 11;
+		break;
+	case 'x': weight = 19; index = 21;
+		break;
+	case 'y': weight = 21; index = 19;
+		break;
+	case 'z': weight = 22; index = 18;
+		break;
+	}
+
+	Huff_Data<char> result(weight, current_char);
+	morse_Huff_Data[index] = result;
+}
+
+void Morse::createMapHuffVect(SFBM::Map<string, string>& morse_map, vector <Huff_Data<char>>& morse_Huff_Data) {
 	Morse::open_code_key_file();
-	Morse::code_key_eval(the_map);
+	Morse::code_key_eval(morse_map, morse_Huff_Data);
 }
 
-// Part of what I was working on before the merge conflicts - commented out, only here for cross-reference
-/*
-Binary_Tree<string> Morse::read_map_to_tree(Binary_Tree<string>& the_tree) {
-	SFBM::Map<std::string, std::string>::iterator it;
-	it = morse_map.begin();
-	the_tree.read_binary_tree(it);
-
-	return the_tree;
-}
-*/
-
-/* 
-
-This code all needs to be debugged. I am having trouble finding the issue with it if you want to give it a shot Corey
-
-//Fills the binary tree from the morse map
-Binary_Tree<string> Morse::read_map_to_binary_tree() {
-	SFBM::Map<string, string> iterator it;
-	it = morse_map.begin();
-	if (it == NULL) {
-		return Binary_Tree<string>();
-	}
-	else {
-		//while there are still codes in the map keep filling the tree
-		while (it != morse_map.end()) {
-			BTNode<string>* root = morse_tree.getRoot();
-			string the_data;
-			the_data = it++;
-
-			//run the for loop to iterate through every character in the morse code
-			for (int i = 0; i < the_data.length(); i++) {
-
-				//if the character is a dot we move left down the tree
-				if (the_data[i] == '.') {
-					//if there is no node then create a node and move the root to it 
-					if (root.left == NULL) {
-						BTNode<string>* left;
-						root.left = left;
-						root = root.left;
-
-					else
-						root = root.left;
-					}
-				}
-
-				//if the character is dash then we move right down the tree
-				else if (the_data[i] == '-') {
-					//if there is no right node then make one and move the root to it
-					if (root.right == NULL) {
-						BTNode<string>* right;
-						root.right = right;
-						root* = root.left;
-					}
-					else
-						root = root.right;
-				}
-				
-			}
-			//assign the_data to the last node we moved to before restarting the while loop
-			root.data = the_data;
-		}
+void change_array_size(vector <Huff_Data<char>>& morse_Huff_Data, int size) {
+	morse_Huff_Data.reserve(size);
+	int weight = 0;
+	char current_char = ' ';
+	Huff_Data<char> temp(weight, current_char);
+	for (int i = 0; i < size; i++) {
+		morse_Huff_Data.push_back(temp);
 	}
 }
-*/
 
 int main() {
 
 	Morse new_morse;
+	SFBM::Map<string, string> morse_map;
+	vector <Huff_Data<char>> morse_Huff_Data;
 
-	new_morse.createMap(morse_map);
+	change_array_size(morse_Huff_Data, 27);
 
-	Binary_Tree<string> morse_tree;
+	new_morse.createMapHuffVect(morse_map, morse_Huff_Data);
 
-	//morse_tree = new_morse.read_map_to_tree(morse_tree);
+	std::ostringstream code;
+
+	Huffman_Tree<char> huff_tree;
+
+	huff_tree.build_tree(morse_Huff_Data);
+
+	huff_tree.print_code(code);
+
+	std::string result = code.str();
+
+	std::cout << result;
+
+	result = huff_tree.decode("....");
+
 
 	return 0;
 }

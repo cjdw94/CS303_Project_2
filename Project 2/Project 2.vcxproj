@@ -151,8 +151,10 @@
   <ItemGroup>
     <ClInclude Include="Binary_Tree.h" />
     <ClInclude Include="BTNode.h" />
+    <ClInclude Include="Huffman_Tree.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="Morse.h" />
+    <ClInclude Include="Priority_Queue.h" />
     <ClInclude Include="Syntax_Error.h" />
   </ItemGroup>
   <ItemGroup>
