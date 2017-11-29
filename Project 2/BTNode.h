@@ -18,7 +18,7 @@ struct BTNode
 		data(the_data), left(left_val), right(right_val) {}
 
 
-	BTNode() { the_data = NULL; left = NULL; right = NULL; }
+	BTNode() { data = ""; left = NULL; right = NULL; }
 
 	// Destructor (to avoid warning message)
 	virtual ~BTNode() {}

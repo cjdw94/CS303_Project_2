@@ -14,7 +14,7 @@ public:
 
 	BT() { root = NULL; }
 
-	BTNode<string>* root;
+	BTNode<string>* root = new BTNode<string>;
 };
 
 #endif 

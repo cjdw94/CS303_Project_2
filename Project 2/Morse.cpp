@@ -1,10 +1,7 @@
 #include "Morse.h"
-#include "Binary_Tree.h"
 #include "Syntax_Error.h"
 #include <fstream>
-#include <sstream>
 #include <string>
-#include <cstring>
 
 // Namespace for namesake, Samuel F. B. Morse.  =D
 using namespace SFBM;
@@ -15,6 +12,7 @@ using std::istringstream;
 ifstream morse_text;
 stringstream text_buffer;
 SFBM::Map<string, string> morse_map;
+BTNode<string>* current = new BTNode<string>;
 
 // Opens (specifically) the "morse.txt" source file for processing the given Morse code
 
@@ -43,17 +41,15 @@ void Morse::constructStuff()
 
 		morse_map[letter] = code;
 
-		
-		BTNode<string>* current = new BTNode<string>;
 		for (size_t i = 0; i < code.length(); i++) {
 			current = tree.root;
 			
 			if (code[i] == '.') {
 				
 				//if there is no node then create a node and move the root to it 
-				if (tree.root->left == NULL) {
-					BTNode<string>* left;
-					current->left = left;
+				if (tree.root->left == nullptr) {
+					BTNode<string>* left = new BTNode<string>;
+					current->left = left; 
 					current = left;
 				}
 				else
@@ -63,8 +59,8 @@ void Morse::constructStuff()
 			//if the character is dash then we move right down the tree
 			else if (code[i] == '_') {
 				//if there is no right node then make one and move the root to it
-				if (current->right == NULL) {
-					BTNode<string>* right;
+				if (current->right == nullptr) {
+					BTNode<string>* right = new BTNode<string>;
 					current->right = right;
 					current = current->right;
 				}
@@ -79,7 +75,7 @@ void Morse::constructStuff()
 
 string Morse::decode(string encoded_msg)
 {
-	BTNode<string>* current;
+	
 	string msg = "";
 	for (size_t i = 0; i < encoded_msg.length(); i++) {
 		current = tree.root;
