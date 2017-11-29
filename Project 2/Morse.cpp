@@ -119,14 +119,18 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 	}
 }
 
-void Morse::navTree(Binary_Tree<char>& morse_tree, BTNode<char>* current_node) {
-
-}
-
 // Wrapper function to combine functionality of openCodeKeyFile() and codeKeyEval()
 void Morse::createMapTree (SFBM::Map<string, string>& morse_map, Binary_Tree<char>& morse_tree) {
 	Morse::openCodeKeyFile();
 	Morse::codeKeyEval(morse_map, morse_tree);
+}
+
+string Morse::decodeMessage(const Binary_Tree<char>& morse_tree) {
+
+}
+
+string Morse::encodeMessage(const Binary_Tree<char>& morse_tree) {
+
 }
 
 int main() {
