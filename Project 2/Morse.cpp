@@ -41,16 +41,16 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 	// Process each char
 	char next_char, morse_char;
 	int i = 0;
-	string key;
-	string morse_value = "temp";
+	string morse_value;
+	string key = "temp";
 	BTNode<char>* root = morse_tree.getRoot();
 	BTNode<char>* current_node = root;
 
 	while (text_buffer >> next_char) {
 
-		// While processing code characters, concatenate together to form complete string for key
+		// While processing code characters, concatenate together to form complete string for morse value
 		if ((next_char == '.') || (next_char == '_')) {
-			key += next_char;
+			morse_value += next_char;
 		
 			// If '.', go left.  If no data/node there, make a dummy node.
 			if (next_char == '.') {
@@ -72,12 +72,12 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 			}
 		}
 
-		// While processing roman characters, assign to morse_value for later map/tree integration
+		// While processing roman characters, assign to key for later map/tree integration
 		else if ((next_char != '.') && (next_char != '_')) {
-			if (morse_value == "temp") {
+			if (key == "temp") {
 				/* Convert roman character from char to string by using string constructor:
 				string(size_t n, char a) */
-				morse_value = string(1, next_char);
+				key = string(1, next_char);
 				/* Save Morse value as char for Binary Tree*/
 				morse_char = next_char;
 			}
@@ -89,8 +89,8 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 				}
 				current_node = root;
 				// Reset the key for the next map entry
-				key = "";
-				morse_value = string(1, next_char);
+				morse_value = "";
+				key = string(1, next_char);
 				/* Save Morse value as char for Binary Tree*/
 				morse_char = next_char;
 			}
@@ -127,21 +127,60 @@ void Morse::createMapTree () {
 	Morse::codeKeyEval(morse_map, morse_tree);
 }
 
-/*
-string Morse::decodeMessage(const Binary_Tree<char>& morse_tree) {
+// Decode a coded message
+string Morse::decodeMessage(string message) {
+	istringstream decode_stream(message);
+	string result = "";
+	char next_char;
+	BTNode<char>* root = morse_tree.getRoot();
+	BTNode<char>* current_node = root;
 
+	while (getline(decode_stream, message, ' ')) {
+		istringstream sub_message(message);
+		while (sub_message >> next_char) {
+			if (next_char == '.') {
+				current_node = current_node->left;
+			}
+			if (next_char == '_') {
+				current_node = current_node->right;
+			}
+		}
+		result += (current_node->data);
+		current_node = root;
+	}
+
+	return result;
 }
 
-string Morse::encodeMessage(const Binary_Tree<char>& morse_tree) {
+// Encode a non-coded message
+string Morse::encodeMessage(string message) {
 
+	istringstream encode_stream(message);
+	string result = "";
+	char next_char;
+
+	while (encode_stream >> next_char) {
+		string str_char(1, next_char);
+		result += morse_map[str_char];
+		result += " ";
+	}
+
+	return result;
 }
-*/
 
 int main() {
 
 	Morse new_morse;
 
+	string coded_message = "._ .__. .";
+
+	string message = "ape";
+
 	new_morse.createMapTree();
+
+	std::cout << new_morse.decodeMessage(coded_message) << std::endl << std::endl;
+
+	std::cout << new_morse.encodeMessage(message) << std::endl << std::endl;
 
 	return 0;
 }
