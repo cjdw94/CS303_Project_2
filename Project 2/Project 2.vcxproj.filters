@@ -38,9 +38,6 @@
     <ClInclude Include="BTNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BT.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="morse.txt">
