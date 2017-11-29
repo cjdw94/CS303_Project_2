@@ -3,7 +3,7 @@
 
 /** Class for a binary tree. */
 
-#include <cstddef>
+//#include <cstddef>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -16,8 +16,10 @@ class Binary_Tree
 {
 public:
 
+	// Declarations for setRoot and getRoot methods
 	void setRoot(BTNode<Item_Type>* newRoot);
 	BTNode<Item_Type>* getRoot();
+	
 	// Constructors and Functions
 
 	/** Construct an empty Binary_Tree. */
@@ -39,20 +41,13 @@ public:
 	/** Virtual destructor to avoid warnings */
 	virtual ~Binary_Tree() {} // Do nothing.
 
-
-							  /** Return the left subtree. */
+	/** Return the left subtree. */
 	Binary_Tree<Item_Type> get_left_subtree() const;
 
 	/** Return the right subtree. */
 	Binary_Tree<Item_Type> get_right_subtree() const;
 
-	//bool isBinarySearch();
-
-	//void isBinarySearch(BTNode<Item_Type>* local_root, bool& result);
-
-	/** Return the data field of the root.
-	@throws std::invalid_argument if empty tree
-	*/
+	/** Return the data within the current node */
 	const Item_Type& get_data() const;
 
 	/** Indicate that this is the empty tree. */
@@ -64,52 +59,17 @@ public:
 	/** Return a string representation of this tree. */
 	virtual std::string to_string() const;
 
+	/** Wrapper function for read_binary_tree */
+	void read_tree(char& read_char);
+
 	/** Read a binary tree */
 	static Binary_Tree<Item_Type> read_binary_tree(std::istream& in);
-
-	void read_tree(std::vector<std::string>& text);
-
-	Binary_Tree<Item_Type> read_binary_tree(std::vector<std::string>& text, int& i);
+	Binary_Tree<Item_Type> read_binary_tree(char& read_char, int& i);
 
 	/** Return a string representation of the root */
 	std::string root_to_string() const {
 		return root->to_string();
 	}
-
-
-	/** Return a pre-order traversal of the tree */
-	std::string pre_order() const {
-		return pre_order(root);
-	}
-
-
-
-	/** Return a post-order traversal of the tree */
-	std::string post_order() const {
-		return post_order(root);
-	}
-
-
-	std::string in_order() const {
-		return in_order(root);
-	}
-
-
-
-	int height() const {
-		if (is_null()) return 0;
-		return 1 + std::max(get_left_subtree().height(), get_right_subtree().height());
-	}
-
-
-
-	int number_of_nodes() const {
-		if (is_null()) return 0;
-		return 1 + get_left_subtree().number_of_nodes()
-			+ get_right_subtree().number_of_nodes();
-	}
-
-
 
 protected:
 
@@ -120,38 +80,16 @@ protected:
 	// Data Field
 	BTNode<Item_Type>* root;
 
-private:
-
-
-	std::string pre_order(const BTNode<Item_Type>* local_root) const;
-
-
-
-	std::string post_order(const BTNode<Item_Type>* local_root) const;
-
-	std::string in_order(const BTNode<Item_Type>* local_root) const;
-
-
-
-
 };  // End Binary_Tree
-
-
-	/*template<typename Item_Type>
-	bool Binary_Tree<Item_Type>::isBinarySearch(){
-	bool result=true;
-	isBinarySearch(this->root,result);
-	return result;
-	}*/
 
 template<typename Item_Type>
 void Binary_Tree<Item_Type>::setRoot(BTNode<Item_Type>* new_root) {
 
 	root = new_root;
 }
+
 template<typename Item_Type>
 BTNode<Item_Type>* Binary_Tree<Item_Type>::getRoot() {
-
 	return root;
 }
 
@@ -172,10 +110,13 @@ std::istream& operator >> (std::istream& in,
 	return in;
 }
 
-// Implementation of member functions
 
+/************************************************
+Implementation of member functions
+*************************************************/
 
 // Accessors
+
 /** Return the left-subtree. */
 template<typename Item_Type>
 Binary_Tree<Item_Type>
@@ -185,7 +126,6 @@ Binary_Tree<Item_Type>::get_left_subtree() const {
 	}
 	return Binary_Tree<Item_Type>(root->left);
 }
-
 
 /** Return the right-subtree */
 template<typename Item_Type>
@@ -237,20 +177,17 @@ std::string Binary_Tree<Item_Type>::to_string() const {
 	return os.str();
 }
 
-/*string_tokenizer st(line, "+ ");
-while (st.has_more_tokens()) {
-string term = st.next_token();*/
-
 template<typename Item_Type>
-void Binary_Tree<Item_Type>::read_tree(std::vector<std::string>& text) {
+void Binary_Tree<Item_Type>::read_tree(char& read_char) {
 	int i = 0;
-	Binary_Tree<Item_Type> newTree = read_binary_tree(text, i);
+	Binary_Tree<Item_Type> newTree = read_binary_tree(read_char, i);
 	setRoot(newTree.getRoot());
 }
 
+// FIX THIS
 template<typename Item_Type>
 Binary_Tree<Item_Type> Binary_Tree<Item_Type>::
-read_binary_tree(std::vector<std::string>& text, int& i) {
+read_binary_tree(char& read_char, int& i) {
 
 	if (i>text.size() - 1 || text[i] == "NULL") {
 		return Binary_Tree<Item_Type>();
@@ -282,68 +219,6 @@ read_binary_tree(std::istream& in) {
 		return Binary_Tree<Item_Type>(the_data, left, right);
 	}
 }
-
-
-
-
-/** Return a pre-order traversal of the tree */
-template<typename Item_Type>
-std::string Binary_Tree<Item_Type>::pre_order(const BTNode<Item_Type>* local_root) const {
-	std::string result;
-	if (local_root != NULL) {
-		result += local_root->to_string();
-		if (local_root->left != NULL) {
-			result += " ";
-			result += pre_order(local_root->left);
-		}
-		if (local_root->right != NULL) {
-			result += " ";
-			result += pre_order(local_root->right);
-		}
-	}
-	return result;
-}
-
-
-/** Return a post-order traversal of the tree */
-template<typename Item_Type>
-std::string Binary_Tree<Item_Type>::post_order(const BTNode<Item_Type>* local_root) const {
-	std::string result;
-	if (local_root != NULL) {
-		if (local_root->left != NULL) {
-			result += post_order(local_root->left);
-			result += " ";
-		}
-		if (local_root->right != NULL) {
-			result += post_order(local_root->right);
-			result += " ";
-		}
-		result += local_root->to_string();
-	}
-	return result;
-}
-
-
-/** Return an in-order traversal of the tree */
-template<typename Item_Type>
-std::string Binary_Tree<Item_Type>::in_order(const BTNode<Item_Type>* local_root) const {
-	std::string result;
-	if (local_root != NULL) {
-		result += "(";
-		if (local_root->left != NULL) {
-			result += in_order(local_root->left);
-			result += " ";
-		}
-		result += local_root->to_string();
-		if (local_root->right != NULL) {
-			result += " ";
-			result += in_order(local_root->right);
-		}
-		result += ")";
-	}
-	return result;
-}
-
 
 #endif
 

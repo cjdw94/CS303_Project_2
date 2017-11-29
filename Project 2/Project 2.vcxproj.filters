@@ -32,9 +32,6 @@
     <ClInclude Include="Binary_Tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Huffman_Tree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Priority_Queue.h">
       <Filter>Header Files</Filter>
     </ClInclude>

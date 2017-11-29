@@ -2,24 +2,29 @@
 #define MORSE_H_
 
 #include "map.h"
-#include "BT.h"
-#include <iostream>
+#include "Binary_Tree.h"
+#include <string>
+#include <vector>
 
-using namespace std;
-
+using namespace SFBM;
+using std::string;
+using std::vector;
 
 class Morse{
 public:
-	void open_code_key_file();
+	void openCodeKeyFile();
 
-	void constructStuff();
+	void codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>& morse_tree);
 
-	string decode(string encoded_msg);
+	void createMapTree(SFBM::Map<string, string>& morse_map, Binary_Tree<char>& morse_tree);
 
+	string decodeMessage(const Binary_Tree<char>& morse_tree);
+
+	string encodeMessage(const Binary_Tree<char>& morse_tree);
 
 private:
-	BT tree = BT();
-
+	SFBM::Map<string, string> morse_map;
+	Binary_Tree<char> morse_tree;
 };
 
 #endif

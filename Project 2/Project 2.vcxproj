@@ -152,7 +152,6 @@
     <ClInclude Include="Binary_Tree.h" />
     <ClInclude Include="BT.h" />
     <ClInclude Include="BTNode.h" />
-    <ClInclude Include="Huffman_Tree.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="Morse.h" />
     <ClInclude Include="Priority_Queue.h" />
