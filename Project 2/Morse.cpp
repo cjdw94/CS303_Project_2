@@ -50,21 +50,20 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 		if ((next_char == '.') || (next_char == '_')) {
 			key += next_char;
 		
+			// If '.', go left.  If no data/node there, make a dummy node.
 			if (next_char == '.') {
 				if (current_node->left == NULL) {
 					Binary_Tree<char> left_subtree(null_char);
 					current_node = (current_node->left = left_subtree.getRoot());
-				}
-				
+				}	
 			}
-
+			// If '_', go right.  If no data/node there, make a dummy node.
 			else {
 				if (current_node->right == NULL) {
 					Binary_Tree<char> right_subtree(null_char);
 					current_node = (current_node->right = right_subtree.getRoot());
 				}
 			}
-
 		}
 
 		// While processing roman characters, assign to morse_value for later map/tree integration
