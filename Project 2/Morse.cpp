@@ -55,7 +55,9 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 				if (current_node->left == NULL) {
 					Binary_Tree<char> left_subtree(null_char);
 					current_node = (current_node->left = left_subtree.getRoot());
-				}	
+				}
+				else
+					current_node = current_node->left;
 			}
 			// If '_', go right.  If no data/node there, make a dummy node.
 			else {
@@ -63,6 +65,8 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 					Binary_Tree<char> right_subtree(null_char);
 					current_node = (current_node->right = right_subtree.getRoot());
 				}
+				else
+					current_node = current_node->right;
 			}
 		}
 
