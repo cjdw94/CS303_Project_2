@@ -18,6 +18,8 @@ using std::vector;
 ifstream morse_text;
 stringstream text_buffer;
 char null_char = NULL;
+SFBM::Map<string, string> Morse::morse_map;
+Binary_Tree<char> Morse::morse_tree(null_char);
 
 // Opens (specifically) the "morse.txt" source file for processing the given Morse code
 void Morse::openCodeKeyFile() {
@@ -120,11 +122,12 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 }
 
 // Wrapper function to combine functionality of openCodeKeyFile() and codeKeyEval()
-void Morse::createMapTree (SFBM::Map<string, string>& morse_map, Binary_Tree<char>& morse_tree) {
+void Morse::createMapTree () {
 	Morse::openCodeKeyFile();
 	Morse::codeKeyEval(morse_map, morse_tree);
 }
 
+/*
 string Morse::decodeMessage(const Binary_Tree<char>& morse_tree) {
 
 }
@@ -132,13 +135,13 @@ string Morse::decodeMessage(const Binary_Tree<char>& morse_tree) {
 string Morse::encodeMessage(const Binary_Tree<char>& morse_tree) {
 
 }
+*/
 
 int main() {
 
 	Morse new_morse;
-	SFBM::Map<string, string> morse_map;
-	Binary_Tree<char> morse_tree(null_char);
-	new_morse.createMapTree(morse_map, morse_tree);
+
+	new_morse.createMapTree();
 
 	return 0;
 }

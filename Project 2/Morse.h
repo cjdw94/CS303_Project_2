@@ -16,15 +16,14 @@ public:
 
 	void codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>& morse_tree);
 
-	void createMapTree(SFBM::Map<string, string>& morse_map, Binary_Tree<char>& morse_tree);
+	void createMapTree();
 
-	string decodeMessage(const Binary_Tree<char>& morse_tree);
+	//string decodeMessage(const Binary_Tree<char>& morse_tree);
 
-	string encodeMessage(const Binary_Tree<char>& morse_tree);
+	//string encodeMessage(const Binary_Tree<char>& morse_tree);
 
-private:
-	SFBM::Map<string, string> morse_map;
-	Binary_Tree<char> morse_tree;
+	static SFBM::Map<string, string> morse_map;
+	static Binary_Tree<char> morse_tree;
 };
 
 #endif
