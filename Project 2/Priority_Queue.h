@@ -54,7 +54,7 @@ void priority_queue<Item_Type, Compare>::pop() {
 			parent = max_child;
 		}
 		else break;
-	}
+	} 
 }
 
 #endif
