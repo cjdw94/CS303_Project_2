@@ -21,10 +21,10 @@ struct BTNode
 	virtual ~BTNode() {}
 
 	// to_string
+	// Converts/returns string representation of data in node
 	virtual std::string to_string() const {
 		std::ostringstream os;
-//		os << data;
-		return data.str();
+		return os.str();
 	}
 }; // End BTNode
 
