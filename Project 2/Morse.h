@@ -18,9 +18,9 @@ public:
 
 	void createMapTree();
 
-	string decodeMessage(string message);
+	string decodeMessage(string coded_msg);
 
-	string encodeMessage(string message);
+	string encodeMessage(string msg);
 
 	static SFBM::Map<string, string> morse_map;
 	static Binary_Tree<char> morse_tree;

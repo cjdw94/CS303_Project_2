@@ -127,68 +127,52 @@ void Morse::createMapTree () {
 	Morse::codeKeyEval(morse_map, morse_tree);
 }
 
-// Decode a coded message
-string Morse::decodeMessage(string message) {
-	istringstream decode_stream(message);
-	string result = "";
-	char next_char;
-	BTNode<char>* root = morse_tree.getRoot();
-	BTNode<char>* current_node = root;
-
-	while (getline(decode_stream, message, ' ')) {
-		istringstream sub_message(message);
-		while (sub_message >> next_char) {
-			if (next_char == '.') {
-				current_node = current_node->left;
-			}
-			if (next_char == '_') {
-				current_node = current_node->right;
-			}
+string Morse::decodeMessage(string coded_msg) {
+	string msg = "";
+	BTNode<char>* current_node = morse_tree.getRoot();
+	for (size_t i = 0; i < coded_msg.length(); i++) {
+		if (coded_msg[i] == '.')
+			current_node = current_node->left;
+		else if (coded_msg[i] == '_')
+			current_node = current_node->right;
+		else if (coded_msg[i] == ' ') {
+			msg += current_node->data;
+			current_node = morse_tree.getRoot();
+			continue;
 		}
-		result += (current_node->data);
-		current_node = root;
 	}
 
-	return result;
+	msg += current_node->data;
+	return msg;
+
 }
 
-/*
-// Encode a non-coded message
-string Morse::encodeMessage(string message) {
-
-	istringstream encode_stream(message);
-	string result = "";
-	char next_char;
-	BTNode<char>* root = morse_tree.getRoot();
-	BTNode<char>* current_node = root;
-
-	while (getline(decode_stream, message, ' ')) {
-		istringstream sub_message(message);
-		while (sub_message >> next_char) {
-			if (next_char == '.') {
-				current_node = current_node->left;
-			}
-			if (next_char == '_') {
-				current_node = current_node->right;
-			}
+string Morse::encodeMessage(string msg) {
+	string encoded_msg = "";
+	for (size_t i = 0; i < msg.length(); i++) {
+		if (msg[i] == ' ')
+			encoded_msg += " ";
+		else {
+			string key = string(1, msg[i]);
+			encoded_msg += morse_map[key] + " ";
 		}
-		result += (current_node->data);
-		current_node = root;
 	}
-
-	return result;
+	return encoded_msg;
 }
-*/
+
 
 int main() {
 
 	Morse new_morse;
 
-	string message = "._ .__. .";
-
 	new_morse.createMapTree();
 
-	std::cout << new_morse.decodeMessage(message) << std::endl << std::endl;
+	string message = new_morse.encodeMessage("why");
+	string alldone = new_morse.decodeMessage(message);
+
+	std::cout << alldone;
+
+	system("pause");
 
 	return 0;
 }
