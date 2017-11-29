@@ -107,19 +107,24 @@ std::string Huffman_Tree<T>::decode(const std::string& coded_message) {
 	std::string result;
 	Binary_Tree<Huff_Data<T>> current_tree = huff_tree;
 	for (size_t i = 0; i < coded_message.length(); i++) {
-	if (coded_message[i] == '_') {
-			current_tree = current_tree.get_right_subtree();
+		if (coded_message[i] == ' ') 
+				current_tree = current_tree.get_left_subtree();
+		else if(coded_message[i] == '.' || coded_message[i] == '-')
+			current_tree = current_tree.get_right_subtree(); 
+		else {
+				if (coded_message[i] == '.') 
+					current_tree = current_tree.get_left_subtree();
+				else
+					current_tree = current_tree.get_right_subtree();
 		}
-	else {
-			current_tree = current_tree.get_left_subtree();
+			if (current_tree.is_leaf()) {
+				Huff_Data<T> the_data = current_tree.get_data();
+				result += the_data.object;
+				current_tree = huff_tree;
+		
+			}
 		}
-	if (current_tree.is_leaf()) {
-		Huff_Data<T> the_data = current_tree.get_data();
-			result += the_data.object;
-			current_tree = huff_tree;
-		}
-	}
-	return result;
+		return result;
 }
 
 

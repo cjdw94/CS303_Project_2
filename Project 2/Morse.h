@@ -2,29 +2,23 @@
 #define MORSE_H_
 
 #include "map.h"
-#include "Binary_Tree.h"
-#include "Huffman_Tree.h"
-#include <string>
-#include <vector>
+#include "BT.h"
+#include <iostream>
 
-using namespace SFBM;
-using std::string;
-using std::vector;
+using namespace std;
+
 
 class Morse{
 public:
 	void open_code_key_file();
 
-	void code_key_eval(SFBM::Map<string, string>& morse_map, vector <Huff_Data<char>>& morse_Huff_Data);
+	void constructStuff();
 
-	void assign_weight(char current_char, vector <Huff_Data<char>>& morse_Huff_Data);
+	string decode(string encoded_msg);
 
-	void createMapHuffVect(SFBM::Map<string, string>& morse_map, vector <Huff_Data<char>>& morse_Huff_Data);
-
-	void change_array_size(vector <Huff_Data<char>>& morse_Huff_Data, int size);
 
 private:
-	SFBM::Map<string, string> morse_map;
+	BT tree = BT();
 
 };
 
