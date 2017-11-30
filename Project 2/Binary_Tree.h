@@ -47,16 +47,6 @@ public:
 	/** Return the right subtree. */
 	Binary_Tree<Item_Type> get_right_subtree() const;
 
-	/** Return the data within the current node */
-	const Item_Type& get_data() const;
-
-	/** Indicate that this is the empty tree. */
-	bool is_null() const;
-
-	/** Indicate that this tree is a leaf. */
-	bool is_leaf() const;
-
-
 protected:
 
 	// Protected constructor
@@ -103,32 +93,6 @@ Binary_Tree<Item_Type>::get_right_subtree() const {
 		throw std::invalid_argument("get_right_subtree on null tree");
 	}
 	return Binary_Tree<Item_Type>(root->right);
-}
-
-/** Return the data field of the root
-@throws std::invalid_argument if null tree
-*/
-template<typename Item_Type>
-const Item_Type& Binary_Tree<Item_Type>::get_data() const {
-	if (root == NULL) {
-		throw std::invalid_argument("get_data on null tree");
-	}
-	return root->data;
-}
-
-template<typename Item_Type>
-bool Binary_Tree<Item_Type>::is_null() const {
-	return root == NULL;
-}
-
-/** Indicate that this tree is a leaf. */
-template<typename Item_Type>
-bool Binary_Tree<Item_Type>::is_leaf() const {
-	if (root != NULL) {
-		return root->left == NULL && root->right == NULL;
-	}
-	else
-		return true;
 }
 
 #endif
