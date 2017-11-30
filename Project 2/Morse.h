@@ -12,15 +12,21 @@ using std::vector;
 
 class Morse{
 public:
+	// Opens given/assigned text file of 108-158 characters and loads into stringstream for further manipulation
 	void openCodeKeyFile();
 
+	/* Operates from the text_buffer stringstream and evaluates the contents of "morse.txt" character by character, 
+	   to populate both the map and binary tree */
 	void codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>& morse_tree);
 
+	// Wrapper function to combine functionality of openCodeKeyFile() and codeKeyEval()
 	void createMapTree();
 
-	//string decodeMessage(const Binary_Tree<char>& morse_tree);
+	// Decodes a given string that contains a coded message
+	string decodeMessage(string coded_msg);
 
-	//string encodeMessage(const Binary_Tree<char>& morse_tree);
+	// Encodes a given string that contains a message in English
+	string encodeMessage(string msg);
 
 	static SFBM::Map<string, string> morse_map;
 	static Binary_Tree<char> morse_tree;
