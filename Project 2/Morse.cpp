@@ -51,7 +51,7 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 		// While processing code characters, concatenate together to form complete string for morse value
 		if ((next_char == '.') || (next_char == '_')) {
 			morse_value += next_char;
-		
+
 			// If '.', go left.  If no data/node there, make a dummy node.
 			if (next_char == '.') {
 				if (current_node->left == NULL) {
