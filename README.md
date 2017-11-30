@@ -2,6 +2,8 @@
 Second CS303 Project, Fall 2017
 
 Project due on Thursday, November 30, 2017.
+
+11/30/17 - Finishing touches - code clean-up, commenting, and error catches.
   
 11/29/17 - Per instructor guidance, Huffman Tree idea dropped, plain Binary Tree reworked and implemented
 
