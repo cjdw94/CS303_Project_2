@@ -44,7 +44,8 @@ void Morse::openCodeKeyFile() {
 	morse_text.close();
 }
 
-/** Opens given/assigned text file of 108-158 characters and loads into stringstream for further manipulation
+/** Operates from the text_buffer stringstream and evaluates the contents of "morse.txt" character by character, to populate
+	both the map and binary tree
 @param The map and binary tree to be built
 @return None (void function) -> populates the map and binary tree with data from "morse.txt" 
 								(located in stringstream variable, text_buffer)
@@ -95,7 +96,7 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 				/* Convert roman character from char to string by using string constructor:
 				string(size_t n, char a) */
 				key = string(1, next_char);
-				/* Save char representation of key (roman_char) for integration into the Binary Tree*/
+				/* Save char representation of key (roman_char) for integration into the binary tree*/
 				roman_char = next_char;
 			}
 			else {
@@ -119,7 +120,7 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 				/* Convert roman character from char to string by using string constructor:
 				string(size_t n, char a) */
 				key = string(1, next_char);
-				/* Save char representation of key (roman_char) for integration into the Binary Tree*/
+				/* Save char representation of key (roman_char) for integration into the binary tree*/
 				roman_char = next_char;
 			}
 		}
@@ -152,7 +153,7 @@ void Morse::codeKeyEval(SFBM::Map<string, string>& morse_map, Binary_Tree<char>&
 			/* Convert roman character from char to string by using string constructor:
 			string(size_t n, char a) */
 			morse_value = string(1, next_char);
-			/* Save char representation of key (roman_char) for integration into the Binary Tree*/
+			/* Save char representation of key (roman_char) for integration into the binary tree*/
 			roman_char = next_char;
 			break;
 		}
@@ -228,6 +229,8 @@ string Morse::encodeMessage(string msg) {
 	}
 	return encoded_msg;
 }
+
+
 
 
 int main() {
