@@ -28,11 +28,5 @@ struct BTNode
 	}
 }; // End BTNode
 
-// Overloading the ostream insertion operator
-template<typename Item_Type>
-std::ostream& operator<<(std::ostream& out,
-	const BTNode<Item_Type>& node) {
-		return out << node.to_string();
-}
 
 #endif
